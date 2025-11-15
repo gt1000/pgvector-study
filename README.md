@@ -1,29 +1,14 @@
-# pgvector Study
+# 📘 pgvector 개요
 
-PostgreSQL의 벡터 유사도 검색 확장 프로그램인 pgvector를 체계적으로 학습하고 기록하는 저장소입니다.
+## 1. 정의
+pgvector는 PostgreSQL에서 **벡터 유사도 검색**을 가능하게 하는 오픈소스 확장 프로그램.
 
-## 📘 pgvector 개요
-
-### 1. 정의
-
-pgvector는 PostgreSQL에서 **벡터 유사도 검색**을 가능하게 하는 오픈소스 확장 프로그램입니다. AI/ML 애플리케이션에서 생성된 임베딩 벡터를 효율적으로 저장하고 검색할 수 있게 해줍니다.
-
-### 2. 주요 특징 (장점)
-
+## 2. 주요 특징 (장점)
 **PostgreSQL의 강력함과 벡터 검색의 결합**
-- ✅ **ACID 트랜잭션**: 데이터 일관성 보장
-- ✅ **관계형 데이터와 통합**: JOIN, WHERE 등 SQL 기능 활용
-- ✅ **기존 인프라 활용**: 별도 벡터 DB 불필요
-- ✅ **다양한 언어 지원**: Python, Node.js, Java, Go 등 모든 PostgreSQL 클라이언트
-- ✅ **오픈소스**: 무료, 커뮤니티 지원
+- 기존 인프라 활용: 별도 벡터 DB 불필요
+- 오픈소스: 무료, 커뮤니티 지원
 
-**지원 기능**
-- 4가지 벡터 타입: `vector`, `halfvec`, `bit`, `sparsevec`
-- 6가지 거리 함수: L2, Inner Product, Cosine, L1, Hamming, Jaccard
-- 2가지 인덱스: HNSW (고성능), IVFFlat (빠른 빌드)
-- Exact & Approximate 검색
-
-### 3. 벡터 데이터베이스 비교
+## 3. 벡터 데이터베이스 비교
 
 | 특징 | pgvector | Pinecone | Milvus | Weaviate |
 |------|----------|----------|--------|----------|
@@ -36,24 +21,30 @@ pgvector는 PostgreSQL에서 **벡터 유사도 검색**을 가능하게 하는 
 | **확장성** | 수억 벡터 | 무제한 | 무제한 | 수억 벡터 |
 | **인프라** | 기존 PostgreSQL | 관리형 | 자체 관리 필요 | 자체 관리 필요 |
 
-**pgvector를 선택해야 하는 경우**
-- 이미 PostgreSQL을 사용 중인 경우
-- 벡터와 관계형 데이터를 함께 다뤄야 하는 경우
-- 복잡한 JOIN 쿼리가 필요한 경우
-- 인프라를 단순하게 유지하고 싶은 경우
-- 비용을 절감하고 싶은 경우
-
+## 4. 내가 pgvector를 선택하는 이유
+**기존에 사용중인 Postgresql 에 확장 설치가 쉽고 관리가 용이**
+- 우리 회사의 경우 대부분이 온프레미스 환경, 고객사는 돈이 없음(비용 절감)
+- 이미 대부분의 DB가 PostgreSQL + PostGIS 를 사용 중
+- 이중화 및 백업의 고통에서 벗어 나고자
+- 백만건 이상의 데이터의 경우 성능 한계 및 Index 이슈 등이 있지만 우리 고객 데이터는  
+  그만큼 많지 않음
 ---
 
-## 📖 목차
+## 5. pgvector를 선택 시 유의 사항
+- pgvector를 상용 목적으로 사용하는 경우, R & D에 사용하는 경우에 따라 버전이 달라짐  
+  상용의 경우 최신 버전이 아닌 안정적인 버전을 사용하고, R & D의 경우 가능하면 가장 최신 버전을 사용해야  
+  성능 및 최신 기능을 맛 볼 수 있음
+- 프로젝트 내 service prodvider 형태의 별도 DB로 관리 하는 경우가 아니라면  
+  스키마 분리를 통해, 동일 DB내 업무용 Table과 벡터 Table 이 혼재 되지 않도록 스키마를 분리
+---
 
-### [01. 설치 (Installation)](./01-installation/)
-다양한 환경에서의 pgvector 설치
-- Linux & Mac 설치
-- Windows 설치
-- Docker
-- 패키지 매니저 (Homebrew, APT, Yum, PGXN, conda-forge 등)
-- 설치 문제 해결
+# 📖 목차
+
+### [01. 설치 ](./01-installation/)
+설치
+- Docker를 이용한 신규 설치
+- 기 운영중인 Postgresql에 확장 설치
+
 
 ### [02. 시작하기 (Getting Started)](./02-getting-started/)
 pgvector의 첫 걸음
