@@ -42,122 +42,99 @@ pgvector는 PostgreSQL에서 **벡터 유사도 검색**을 가능하게 하는 
 
 # 📖 목차
 
+Milvus / Pinecone / Weaviate / Chroma / pgvector 제일 최신 문서 흐름과 동일하게 재 작성  
+- 임베딩 생성 → 저장 → 검색 → 인덱싱
+
 ### [01. 설치 ](./01-installation/)
- 1\) Docker를 이용한 신규 설치  
- 2\) 기 운영중인 Postgresql에 확장 설치
+- Docker를 이용한 신규 설치  
+- 기 운영중인 Postgresql에 확장 설치
 
-
-### [02. 시작하기 (Getting Started)](./02-getting-started/)
-pgvector의 첫 걸음
+### 02. 시작하기 (Getting Started)
 - Extension 활성화
 - 벡터 컬럼 생성
 - 벡터 삽입
 - 최근접 이웃 검색
 - 기본 쿼리
 
-### [03. 벡터 타입 (Vector Types)](./03-vector-types/)
-다양한 벡터 데이터 타입
-- `vector` - 단정밀도 벡터 (최대 2,000차원)
-- `halfvec` - 반정밀도 벡터 (최대 4,000차원)
-- `bit` - 이진 벡터 (최대 64,000차원)
-- `sparsevec` - 희소 벡터 (최대 1,000개 non-zero 원소)
+### 03. 임베딩 생성 (Embedding Basics)
+- 텍스트 임베딩 생성
+- 이미지 임베딩 생성
+- float32 / half / binary 비교
+- 임베딩 차원
+- 외부 모델(SentenceTransformers, OpenAI 등) 활용
 
-### [04. 벡터 저장 (Storing Vectors)](./04-storing-vectors/)
-벡터 데이터 저장 및 관리
-- 테이블 생성 및 벡터 컬럼 추가
-- 벡터 삽입 (Insert)
-- 대량 로딩 (Bulk Loading with COPY)
-- 벡터 업데이트 (Upsert, Update)
-- 벡터 삭제 (Delete)
+### 04. 벡터 타입 (Vector Types)
+- vector
+- halfvec
+- bit
+- sparsevec
+- 거리 함수 연산자 비교
 
-### [05. 벡터 쿼리 (Querying Vectors)](./05-querying-vectors/)
-벡터 검색 쿼리 작성
-- 거리 함수 (`<->`, `<#>`, `<=>`, `<+>`, `<~>`, `<%>`)
-- 최근접 이웃 검색
-- 특정 거리 내 검색
-- 거리 계산
-- 벡터 집계 (평균, 합계)
+### 05. 벡터 저장 (Storing Vectors)
+- Insert / Bulk Insert
+- Update / Upsert
+- Delete
+- 메타데이터 설계
+- JSON + vector 구조
 
-### [06. 인덱싱 (Indexing)](./06-indexing/) ⭐ **핵심**
-벡터 인덱스 생성 및 최적화
-- **HNSW 인덱스**
-  - 인덱스 생성 및 파라미터 (`m`, `ef_construction`)
-  - 쿼리 옵션 (`ef_search`)
-  - 인덱스 빌드 시간 최적화
-- **IVFFlat 인덱스**
-  - 인덱스 생성 및 파라미터 (`lists`)
-  - 쿼리 옵션 (`probes`)
-  - 인덱스 빌드 시간 최적화
-- **필터링 (Filtering)**
-  - WHERE 절과 함께 사용하기
-  - Exact 인덱스 vs Approximate 인덱스
-  - Partial 인덱싱
-  - 파티셔닝
-- **반복 인덱스 스캔 (Iterative Index Scans)**
-  - Strict Order vs Relaxed Order
-  - 스캔 제한 설정
+### 06. 벡터 쿼리 (Querying Vectors)
+- 거리 기반 검색
+- top-K 검색
+- 필터링 기반 벡터 검색
+- exact vs approximate
+- re-ranking
 
-### [07. 반정밀도 벡터 (Half-Precision Vectors)](./07-half-precision-vectors/)
-halfvec 타입 활용
-- halfvec 테이블 생성
-- 반정밀도 인덱싱
-- 쿼리 방법
+### 07. 인덱싱 (Indexing)
+- HNSW (m, ef_construction, ef_search)
+- IVFFlat (lists, probes)
+- Partial Index
+- Partitioning
+- 인덱스 빌드 시간 및 성능
 
-### [08. 이진 벡터 (Binary Vectors)](./08-binary-vectors/)
-bit 타입과 Binary Quantization
-- 이진 벡터 생성 및 쿼리
+### 08. 반정밀도 벡터 (Half-Precision)
+- halfvec 타입
+- halfvec 인덱싱
+- halfvec 검색
+
+### 09. 이진 벡터 (Binary Vectors)
+- bit 타입
 - Binary Quantization
-- Re-ranking
+- 재랭킹
 
-### [09. 희소 벡터 (Sparse Vectors)](./09-sparse-vectors/)
-sparsevec 타입 활용
-- 희소 벡터 형식
-- 삽입 및 쿼리
+### 10. 희소 벡터 (Sparse Vectors)
+- sparsevec 구조
+- sparsevec 삽입 및 검색
 
-### [10. 하이브리드 검색 (Hybrid Search)](./10-hybrid-search/)
-벡터 검색과 전체 텍스트 검색 결합
-- Full-text Search와 결합
-- Reciprocal Rank Fusion (RRF)
-- Cross-encoder
+### 11. 하이브리드 검색 (Hybrid Search)
+- BM25 + vector
+- RRF Fusion
+- Cross Encoder 기반 재랭킹
 
-### [11. 서브벡터 (Subvectors)](./11-subvectors/)
-서브벡터 인덱싱 및 검색
-- Expression 인덱싱
-- Re-ranking
+### 12. 서브벡터 (Subvectors)
+- Subvector Index
+- Expression Indexing
+- Subvector Query
 
-### [12. 성능 튜닝 (Performance)](./12-performance/)
-성능 최적화 기법
-- PostgreSQL 서버 파라미터 설정
-- 대량 데이터 로딩
+### 13. 성능 튜닝 (Performance)
+- PostgreSQL 파라미터 튜닝
 - 인덱스 최적화
-- 쿼리 최적화 (EXPLAIN ANALYZE)
-- 모니터링 (pg_stat_statements)
+- 검색 최적화
+- EXPLAIN ANALYZE
+- pg_stat_statements
 
-### [13. 스케일링 (Scaling)](./13-scaling/)
-pgvector 확장 전략
-- 수직 확장 (Vertical Scaling)
-- 수평 확장 (Horizontal Scaling)
-- 복제본 (Replicas)
-- 샤딩 (Citus)
+### 14. 스케일링 (Scaling)
+- Vertical Scaling
+- Horizontal Scaling
+- Replica
+- Sharding (Citus)
+- 애플리케이션 레벨 샤딩
 
-### [14. 실전 활용 사례 (Use Cases)](./14-use-cases/)
-실제 프로젝트에서의 pgvector 활용
-- **의미론적 검색 (Semantic Search)**
-  - 임베딩 기반 문서 검색
-  - 자연어 쿼리 처리
-  - 다국어 검색 시스템
-- **추천 시스템 (Recommendation System)**
-  - 상품 추천
-  - 콘텐츠 추천
-  - 협업 필터링
-- **이미지 유사도 검색 (Image Similarity Search)**
-  - 이미지 임베딩
-  - 역이미지 검색
-  - 중복 이미지 탐지
-- **RAG 시스템 (Retrieval-Augmented Generation)**
-  - 문서 임베딩 및 저장
-  - Context 검색
-  - LLM과 통합
+### 15. 실전 활용 사례 (Use Cases)
+- Semantic Search
+- RAG 시스템
+- 추천 시스템
+- 이미지 검색
+- 중복 이미지 탐지
 
 ### [15. FAQ & 참고 자료](./15-references/)
 자주 묻는 질문 및 참고 자료
