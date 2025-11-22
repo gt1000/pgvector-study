@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  postgres:
+    build: .  # image 대신 build 사용
+    # image: postgis/postgis:17-3.5  ← 삭제
+    container_name: pgvector
+    restart: always
+
+    environment:
+      POSTGRES_USER: study_postgres
+      POSTGRES_PASSWORD: study_postgres
+      POSTGRES_DB: study
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --lc-collate=C --lc-ctype=C"
+
+    ports:
+      - "35432:5432"
+
+    volumes:
+      - D:\data\pgdata:/var/lib/postgresql/data
+      - ./init-sql.sh:/docker-entrypoint-initdb.d/init-sql.sh:ro
+      - ./database:/database:ro
+
+    # 호스트 리소스 100% 사용 (제한 없음)
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '16.0'
+    #       memory: 32G
+
+    # PostgreSQL 성능 최적화 설정
+    command: >
+      postgres
+      -c shared_buffers=2GB
+      -c effective_cache_size=12GB
+      -c maintenance_work_mem=512M
+      -c work_mem=32MB
+      -c wal_buffers=16MB
+      -c max_wal_size=4GB
+      -c min_wal_size=1GB
