@@ -5,6 +5,8 @@ CREATE SCHEMA IF NOT EXISTS gis;
 
 -- pgvector 스키마
 CREATE SCHEMA IF NOT EXISTS vector;
+-- pgvector extension 자동 생성
+CREATE EXTENSION IF NOT EXISTS vector SCHEMA vector;
 
 -- ========================================
 -- 권한 설정 (간소화)
