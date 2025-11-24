@@ -1,0 +1,42 @@
+# 🧠 한국어 RAG 프로토타입 구축 (온프레미스)
+### 모델 조합: `jhgan/ko-sbert-sts` + `google/flan-t5-base`
+### 구성: Docker Compose + pgvector + 임베딩 서비스 + LLM 서비스 + RAG 코드
+
+
+---
+
+# 📌 1. 전체 구성 개요
+
+이 문서는 다음 모델 기반의 **온프레미스 RAG 프로토타입** 구축 과정을 설명합니다.
+
+- **KoSentenceBERT (jhgan/ko-sbert-sts)** → 임베딩 생성 (768차원)
+- **FLAN-T5-base (google/flan-t5-base)** → 응답 생성(요약/정리)
+- **pgvector** → 임베딩 벡터 저장·검색
+- **FastAPI** → 임베딩 및 LLM 서비스 API 구성
+- **docker-compose** → 두 개의 모델 서비스 + DB 실행
+- **ask.py** → RAG: 질문 → 임베딩 → 검색 → 응답 생성
+
+
+---
+
+# 📌 2. 전체 폴더 구조
+
+project-root/
+├── docker-compose.yml
+├── embedding-service/
+│ ├── Dockerfile
+│ └── app.py
+├── llm-service/
+│ ├── Dockerfile
+│ └── app.py
+├── ingest_pdf.py # PDF를 pgvector에 저장
+└── ask.py # 질문 → 검색 → 응답
+
+Docker 전체 실행
+docker-compose up -d --build
+
+PDF 인덱싱
+python ingest_pdf.py
+
+3) 질문하기
+   python ask.py
