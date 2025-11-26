@@ -45,91 +45,91 @@ pgvector는 PostgreSQL에서 **벡터 유사도 검색**을 가능하게 하는 
 Milvus / Pinecone / Weaviate / Chroma / pgvector 제일 최신 문서 흐름과 동일하게 재 작성  
 - 임베딩 생성 → 저장 → 검색 → 인덱싱
 
-### [01. 설치 ](./01-installation/)
-- Docker를 이용한 신규 설치  
+### [01. 설치 (Installation)](./01-installation/신규%20설치.md)
+- Docker를 이용한 신규 설치
 - 기 운영중인 Postgresql에 확장 설치
 
-### 02. 시작하기 (Getting Started)
+### [02. 시작하기 (Getting Started)](./02-getting-started/시작하기.md)
 - Extension 활성화
 - 벡터 컬럼 생성
 - 벡터 삽입
 - 최근접 이웃 검색
 - 기본 쿼리
 
-### 03. 임베딩 생성 (Embedding Basics)
+### [03. 임베딩 생성 (Embedding Basics)](./03-embedding-basics/임베딩%20생성.md)
 - 텍스트 임베딩 생성
 - 이미지 임베딩 생성
 - float32 / half / binary 비교
 - 임베딩 차원
 - 외부 모델(SentenceTransformers, OpenAI 등) 활용
 
-### 04. 벡터 타입 (Vector Types)
+### [04. 벡터 타입 (Vector Types)](./04-vector-types/벡터%20타입.md)
 - vector
 - halfvec
 - bit
 - sparsevec
 - 거리 함수 연산자 비교
 
-### 05. 벡터 저장 (Storing Vectors)
+### [05. 벡터 저장 (Storing Vectors)](./05-storing-vectors/벡터%20저장.md)
 - Insert / Bulk Insert
 - Update / Upsert
 - Delete
 - 메타데이터 설계
 - JSON + vector 구조
 
-### 06. 벡터 쿼리 (Querying Vectors)
+### [06. 벡터 쿼리 (Querying Vectors)](./06-querying-vectors/벡터%20쿼리.md)
 - 거리 기반 검색
 - top-K 검색
 - 필터링 기반 벡터 검색
 - exact vs approximate
 - re-ranking
 
-### 07. 인덱싱 (Indexing)
+### [07. 인덱싱 (Indexing)](./07-indexing/인덱싱.md)
 - HNSW (m, ef_construction, ef_search)
 - IVFFlat (lists, probes)
 - Partial Index
 - Partitioning
 - 인덱스 빌드 시간 및 성능
 
-### 08. 반정밀도 벡터 (Half-Precision)
+### [08. 반정밀도 벡터 (Half-Precision)](./08-half-precision/반정밀도%20벡터.md)
 - halfvec 타입
 - halfvec 인덱싱
 - halfvec 검색
 
-### 09. 이진 벡터 (Binary Vectors)
+### [09. 이진 벡터 (Binary Vectors)](./09-binary-vectors/이진%20벡터.md)
 - bit 타입
 - Binary Quantization
 - 재랭킹
 
-### 10. 희소 벡터 (Sparse Vectors)
+### [10. 희소 벡터 (Sparse Vectors)](./10-sparse-vectors/희소%20벡터.md)
 - sparsevec 구조
 - sparsevec 삽입 및 검색
 
-### 11. 하이브리드 검색 (Hybrid Search)
+### [11. 하이브리드 검색 (Hybrid Search)](./11-hybrid-search/하이브리드%20검색.md)
 - BM25 + vector
 - RRF Fusion
 - Cross Encoder 기반 재랭킹
 
-### 12. 서브벡터 (Subvectors)
+### [12. 서브벡터 (Subvectors)](./12-subvectors/서브벡터.md)
 - Subvector Index
 - Expression Indexing
 - Subvector Query
 
-### 13. 성능 튜닝 (Performance)
+### [13. 성능 튜닝 (Performance)](./13-performance/성능%20튜닝.md)
 - PostgreSQL 파라미터 튜닝
 - 인덱스 최적화
 - 검색 최적화
 - EXPLAIN ANALYZE
 - pg_stat_statements
 
-### 14. 스케일링 (Scaling)
+### [14. 스케일링 (Scaling)](./14-scaling/스케일링.md)
 - Vertical Scaling
 - Horizontal Scaling
 - Replica
 - Sharding (Citus)
 - 애플리케이션 레벨 샤딩
 
-### 15. 실전 활용 사례 (Use Cases)
+### [15. 실전 활용 사례 (Use Cases)](./15-use-cases/실전%20활용%20사례.md)
 - Semantic Search
 - RAG 시스템
 - 추천 시스템
