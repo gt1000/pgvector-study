@@ -42,6 +42,18 @@ pgvector는 PostgreSQL에서 **벡터 유사도 검색**을 가능하게 하는 
   스키마 분리를 통해, 동일 DB내 업무용 Table과 벡터 Table 이 혼재 되지 않도록 스키마를 분리를 권장
 ---
 
+## 6) 성능 최적화: 원본 데이터 저장 전략
+
+embedding 대상이 되는 원본 데이터를 어떻게 저장할지가 가장 중요합니다.
+
+* 방법 1: 단일 테이블에 원본 데이터와 embedding 데이터를 같이 저장하는 경우
+* 방법 2: 2개의 테이블에 원본 데이터와 embedding 데이터를 각각 분리하여 저장하는 경우  
+   - 1차 filter를 embedding으로 하고 join을 통한 정보 제공
+* 방법 3: 2개의 테이블에 원본 데이터와 embedding 데이터를 각각 분리하여 저장하는 경우
+   - embedding 테이블에 원본 데이터의 summary(요약)을 같이 저장 활용
+
+---
+
 # 📖 목차
 
 Milvus / Pinecone / Weaviate / Chroma / pgvector 제일 최신 문서 흐름과 동일하게 재 작성  
