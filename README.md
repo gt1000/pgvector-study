@@ -196,10 +196,6 @@ Milvus / Pinecone / Weaviate / Chroma / pgvector 제일 최신 문서 흐름과 
 - [PostgreSQL 공식 문서](https://www.postgresql.org/docs/)
 - [pgvector 예제 모음](https://github.com/pgvector/pgvector-python/tree/master/examples)
 
-## 🚀 시작일
-
-2024년 11월 14일
-
 ---
 
 **Note**: 이 저장소는 개인 학습 목적으로 작성되었습니다.
