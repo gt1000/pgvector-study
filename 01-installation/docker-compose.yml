@@ -28,13 +28,13 @@ services:
       - ./init-sql.sh:/docker-entrypoint-initdb.d/init-sql.sh:ro
       - ./database:/database:ro
 
-    # PostgreSQL 성능 최적화 예시
+    # PostgreSQL 성능 최적화 예시(메모리 32G 기준)
     command: >
       postgres
-      -c shared_buffers=2GB
-      -c effective_cache_size=12GB
-      -c maintenance_work_mem=512MB
-      -c work_mem=32MB
-      -c wal_buffers=16MB
-      -c max_wal_size=4GB
+      -c shared_buffers=8GB
+      -c effective_cache_size=24GB
+      -c maintenance_work_mem=2GB
+      -c work_mem=128MB
+      -c wal_buffers=32MB
+      -c max_wal_size=8GB
       -c min_wal_size=1GB
