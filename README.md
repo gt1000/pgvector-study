@@ -150,7 +150,7 @@ Milvus / Pinecone / Weaviate / Chroma / pgvector 제일 최신 문서 흐름과 
 - 이미지 검색
 - 중복 이미지 탐지
 
-### [15. FAQ & 참고 자료](./15-references/)
+### [16. FAQ & 참고 자료](./15-references/)
 자주 묻는 질문 및 참고 자료
 - **FAQ**
   - 최대 데이터 크기
