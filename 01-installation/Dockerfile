@@ -1,7 +1,7 @@
 FROM postgis/postgis:18-3.6
 
 # ==========================================
-# 1. 한국어 로케일 설치 (로케일 미존재 문제 해결)
+# 1. 한국어 로케일 설치
 # ==========================================
 RUN apt-get update && \
     apt-get install -y locales && \
@@ -9,17 +9,24 @@ RUN apt-get update && \
     locale-gen ko_KR.UTF-8 && \
     update-locale LANG=ko_KR.UTF-8 LC_ALL=ko_KR.UTF-8
 
-# 기본 로케일 환경변수 설정 (정렬은 C로 composer에서 override 예정)
 ENV LANG=ko_KR.UTF-8 \
     LC_ALL=ko_KR.UTF-8
 
 # ==========================================
-# 2. pgvector 빌드 도구 설치
+# 2. PGDG 저장소 추가 (pgvectorscale 패키지용)
+# ==========================================
+RUN apt-get install -y wget gnupg && \
+    echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+    apt-get update
+
+# ==========================================
+# 3. pgvector 빌드 도구 설치
 # ==========================================
 RUN apt-get install -y build-essential git postgresql-server-dev-18
 
 # ==========================================
-# 3. pgvector 소스 빌드 & 설치
+# 4. pgvector 소스 빌드 & 설치
 # ==========================================
 RUN git clone --branch v0.8.1 https://github.com/pgvector/pgvector.git /tmp/pgvector && \
     cd /tmp/pgvector && \
@@ -27,7 +34,14 @@ RUN git clone --branch v0.8.1 https://github.com/pgvector/pgvector.git /tmp/pgve
     rm -rf /tmp/pgvector
 
 # ==========================================
-# 4. 빌드 관련 패키지 제거 (이미지 경량화)
+# 5. pgvectorscale 설치 (사전 빌드 패키지)
 # ==========================================
-RUN apt-get remove -y build-essential git postgresql-server-dev-18 && \
-    apt-get autoremove -y
+RUN apt-get install -y postgresql-18-pgvectorscale
+
+# ==========================================
+# 6. 빌드 관련 패키지 제거 (이미지 경량화)
+# ==========================================
+RUN apt-get remove -y build-essential git postgresql-server-dev-18 wget gnupg && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
